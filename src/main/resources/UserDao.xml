@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.link.dao.UserDao">
+    <select id="select" parameterType="map"  resultType="com.link.pojo.User">
+        select * from user
+        <where>
+            <if test="u_id!=null">
+                and u_id = #{u_id}
+            </if>
+            <if test="nameLike!=null">
+                and name like #{nameLike}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="insert" parameterType="list" >
+        insert into user values
+        <foreach collection="list"  item="list"  index="index" open="(" separator="," close=")">
+            #{list}
+        </foreach>
+    </insert>
+    <update id="update" parameterType="map">
+        update user set address = #{address} where u_id = #{u_id}
+    </update>
+
+
+</mapper>
